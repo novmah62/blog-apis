@@ -18,7 +18,6 @@ import java.util.List;
 
 @SpringBootApplication
 @RequiredArgsConstructor
-@OpenAPIDefinition(info = @Info(title = "Blog App APIS", version = "1.0"))
 public class BlogAppApisApplication implements CommandLineRunner {
 
 	private final PasswordEncoder passwordEncoder;

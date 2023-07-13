@@ -3,6 +3,7 @@ package com.novmah.blog.controllers;
 import com.novmah.blog.payloads.ApiResponse;
 import com.novmah.blog.payloads.UserDto;
 import com.novmah.blog.services.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
