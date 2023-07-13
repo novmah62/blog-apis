@@ -5,6 +5,7 @@ import com.novmah.blog.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,7 +38,7 @@ public class SecurityConfig {
                 .cors(cors-> cors.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login","/api/users/register").permitAll()
-                        .requestMatchers("/api/posts/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/posts/**").permitAll()
                         .requestMatchers(AUTH_WHITELIST).permitAll()
                         .anyRequest().authenticated())
                 .exceptionHandling(ex-> ex.authenticationEntryPoint(point))
