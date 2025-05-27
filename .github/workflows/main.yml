@@ -28,7 +28,7 @@ jobs:
           context: .
           file: Dockerfile
           push: false
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/blog-apis:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/blog-apis:$(date-'%Y-%m-%d%H-%M-%S')
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -42,5 +42,5 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/blog-apis:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/blog-apis:$(date-'%Y-%m-%d%H-%M-%S')
 
