@@ -46,7 +46,7 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          password: ${{ secrets.SSH_PASSWORD }}
           script: | 
             echo "Logging in to Docker Hub on VM..."
             docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
