@@ -38,30 +38,19 @@ jobs:
 
   deploy:
     name: Deploy to VM
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: build-and-push-docker
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: | 
-            echo "Logging in to Docker Hub on VM..."
-            docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-            echo "Pulling latest Docker image..."
-            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/blog-apis:latest
-
-            echo "Stopping and removing existing container (if any)..."
-            docker stop blog-apis-container || true
-            docker rm blog-apis-container || true
-
-            echo "Running new container..."
-            docker run -d \
-              --name blog-apis-container \
-              -p 8080:8080 \
-              ${{ secrets.DOCKER_HUB_USERNAME }}/blog-apis:latest
-
-            echo "Deployment complete!"
+      - name: Pull Docker Image and Run Container
+        run: |
+          docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          
+          docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/blog-apis:latest
+          
+          docker stop blog-apis-container || true
+          docker rm blog-apis-container || true
+          
+          docker run -d \
+            --name blog-apis-container \
+            -p 8080:8080 \
+            ${{ secrets.DOCKER_HUB_USERNAME }}/blog-apis:latest
