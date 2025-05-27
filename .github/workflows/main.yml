@@ -1,4 +1,4 @@
-name: Build and Deploy Spring Boot Application v1
+name: Build and Deploy Spring Boot Application v2
 
 on:
   push:
